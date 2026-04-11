@@ -1,9 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { useState } from "react";
 import { ArrowUpRight, Clock, User } from "lucide-react";
+import { CaseDetail } from "./case-detail";
 
 interface EscalatedCardProps {
+  id: string;
   initials: string;
   name: string;
   department: string;
@@ -13,6 +15,8 @@ interface EscalatedCardProps {
   escalatedTo: string;
   reason: string;
   escalatedTime: string;
+  previousAlerts: number;
+  onViewDetails: () => void;
 }
 
 function EscalatedCard({
@@ -25,6 +29,7 @@ function EscalatedCard({
   escalatedTo,
   reason,
   escalatedTime,
+  onViewDetails,
 }: EscalatedCardProps) {
   return (
     <article className="rounded-xl border border-warning/30 bg-card p-5">
@@ -64,8 +69,11 @@ function EscalatedCard({
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">{timestamp}</span>
         <div className="flex gap-2">
-          <button className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-            View History
+          <button 
+            onClick={onViewDetails}
+            className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+          >
+            View Details
           </button>
           <button className="rounded-lg bg-warning px-4 py-2 text-sm font-medium text-warning-foreground transition-colors hover:bg-warning/90">
             Resolve
@@ -78,6 +86,7 @@ function EscalatedCard({
 
 const escalatedCases = [
   {
+    id: "8472",
     initials: "CR",
     name: "Carlos R.",
     department: "Sales",
@@ -88,8 +97,10 @@ const escalatedCases = [
     escalatedTo: "Human Resources - Director",
     reason: "Repeated pattern of verbal aggression",
     escalatedTime: "In review 2h",
+    previousAlerts: 3,
   },
   {
+    id: "8471",
     initials: "JT",
     name: "Jorge T.",
     department: "IT",
@@ -100,8 +111,10 @@ const escalatedCases = [
     escalatedTo: "IT Manager",
     reason: "Workplace bullying identified",
     escalatedTime: "In review 5h",
+    previousAlerts: 1,
   },
   {
+    id: "8470",
     initials: "LM",
     name: "Laura M.",
     department: "Marketing",
@@ -112,8 +125,10 @@ const escalatedCases = [
     escalatedTo: "Marketing Director",
     reason: "Intimidation and belittlement",
     escalatedTime: "In review 8h",
+    previousAlerts: 2,
   },
   {
+    id: "8469",
     initials: "PG",
     name: "Pedro G.",
     department: "Operations",
@@ -124,8 +139,10 @@ const escalatedCases = [
     escalatedTo: "Human Resources - Investigation",
     reason: "Direct workplace threat",
     escalatedTime: "In review 1d",
+    previousAlerts: 0,
   },
   {
+    id: "8468",
     initials: "SM",
     name: "Sandra M.",
     department: "Customer Service",
@@ -136,10 +153,29 @@ const escalatedCases = [
     escalatedTo: "CS Manager",
     reason: "Continuous harassment",
     escalatedTime: "In review 1d",
+    previousAlerts: 4,
   },
 ];
 
 export function EscalatedView() {
+  const [selectedCase, setSelectedCase] = useState<typeof escalatedCases[0] | null>(null);
+
+  if (selectedCase) {
+    return (
+      <CaseDetail
+        onClose={() => setSelectedCase(null)}
+        caseData={{
+          id: selectedCase.id,
+          employeeName: selectedCase.name,
+          initials: selectedCase.initials,
+          department: selectedCase.department,
+          location: selectedCase.location,
+          previousAlerts: selectedCase.previousAlerts,
+        }}
+      />
+    );
+  }
+
   return (
     <main className="flex-1 overflow-auto bg-card/50 p-6">
       <header className="mb-6 flex items-center justify-between">
@@ -174,7 +210,11 @@ export function EscalatedView() {
 
       <div className="flex flex-col gap-4">
         {escalatedCases.map((escalatedCase, index) => (
-          <EscalatedCard key={index} {...escalatedCase} />
+          <EscalatedCard 
+            key={index} 
+            {...escalatedCase} 
+            onViewDetails={() => setSelectedCase(escalatedCase)}
+          />
         ))}
       </div>
     </main>
