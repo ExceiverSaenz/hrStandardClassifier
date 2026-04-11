@@ -91,45 +91,45 @@ export function Sidebar({ activeView, onViewChange }: SidebarProps) {
     <aside className="flex h-screen w-60 flex-col border-r border-border bg-background p-4">
       <div className="mb-8">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Bandeja
+          Inbox
         </span>
       </div>
 
       <nav className="flex flex-col gap-1">
         <NavItem
           icon={<Inbox className="h-4 w-4" />}
-          label="Pendientes"
+          label="Pending"
           count={38}
-          active={activeView === "pendientes"}
+          active={activeView === "pending"}
           variant="danger"
-          onClick={() => onViewChange("pendientes")}
+          onClick={() => onViewChange("pending")}
         />
         <NavItem
           icon={<AlertTriangle className="h-4 w-4" />}
-          label="Escalados"
+          label="Escalated"
           count={5}
-          active={activeView === "escalados"}
+          active={activeView === "escalated"}
           variant="warning"
-          onClick={() => onViewChange("escalados")}
+          onClick={() => onViewChange("escalated")}
         />
         <NavItem
           icon={<CheckCircle2 className="h-4 w-4" />}
-          label="Resueltos"
+          label="Resolved"
           count={124}
-          active={activeView === "resueltos"}
+          active={activeView === "resolved"}
           variant="default"
-          onClick={() => onViewChange("resueltos")}
+          onClick={() => onViewChange("resolved")}
         />
       </nav>
 
       <div className="mt-auto">
         <div className="rounded-xl bg-card p-4">
           <p className="mb-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            Hoy
+            Today
           </p>
           <div className="flex flex-col items-center">
             <ProgressRing percentage={73} />
-            <p className="mt-2 text-sm text-muted-foreground">alertas revisadas</p>
+            <p className="mt-2 text-sm text-muted-foreground">alerts reviewed</p>
           </div>
         </div>
       </div>

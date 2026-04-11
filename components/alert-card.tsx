@@ -7,7 +7,7 @@ interface AlertCardProps {
   name: string;
   department: string;
   location: string;
-  severity: "Alta" | "Media";
+  severity: "High" | "Medium";
   timestamp: string;
   message: string;
 }
@@ -25,12 +25,12 @@ function Avatar({ initials, color }: { initials: string; color: string }) {
   );
 }
 
-function SeverityBadge({ severity }: { severity: "Alta" | "Media" }) {
+function SeverityBadge({ severity }: { severity: "High" | "Medium" }) {
   return (
     <span
       className={cn(
         "rounded-md px-2.5 py-1 text-xs font-medium",
-        severity === "Alta"
+        severity === "High"
           ? "bg-destructive/20 text-destructive"
           : "bg-warning/20 text-warning"
       )}
@@ -90,13 +90,13 @@ export function AlertCard({
         <span className="text-xs text-muted-foreground">{timestamp}</span>
         <div className="flex gap-2">
           <button className="rounded-lg border border-border bg-transparent px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-            Falso positivo
+            False Positive
           </button>
           <button className="rounded-lg border border-border bg-transparent px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-            Escalar
+            Escalate
           </button>
           <button className="rounded-lg border border-border bg-transparent px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-            Tomar acción
+            Take Action
           </button>
         </div>
       </footer>

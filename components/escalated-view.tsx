@@ -3,29 +3,29 @@
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, Clock, User } from "lucide-react";
 
-interface EscaladoCardProps {
+interface EscalatedCardProps {
   initials: string;
   name: string;
   department: string;
   location: string;
   timestamp: string;
   message: string;
-  escaladoA: string;
-  motivo: string;
-  tiempoEscalado: string;
+  escalatedTo: string;
+  reason: string;
+  escalatedTime: string;
 }
 
-function EscaladoCard({
+function EscalatedCard({
   initials,
   name,
   department,
   location,
   timestamp,
   message,
-  escaladoA,
-  motivo,
-  tiempoEscalado,
-}: EscaladoCardProps) {
+  escalatedTo,
+  reason,
+  escalatedTime,
+}: EscalatedCardProps) {
   return (
     <article className="rounded-xl border border-warning/30 bg-card p-5">
       <div className="mb-4 flex items-start justify-between">
@@ -42,7 +42,7 @@ function EscaladoCard({
         </div>
         <div className="flex items-center gap-2 rounded-full bg-warning/20 px-3 py-1 text-xs font-medium text-warning">
           <Clock className="h-3 w-3" />
-          {tiempoEscalado}
+          {escalatedTime}
         </div>
       </div>
 
@@ -53,11 +53,11 @@ function EscaladoCard({
       <div className="mb-4 rounded-lg bg-secondary/50 p-3">
         <div className="flex items-center gap-2 text-sm">
           <User className="h-4 w-4 text-muted-foreground" />
-          <span className="text-muted-foreground">Escalado a:</span>
-          <span className="font-medium text-foreground">{escaladoA}</span>
+          <span className="text-muted-foreground">Escalated to:</span>
+          <span className="font-medium text-foreground">{escalatedTo}</span>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
-          <span className="font-medium">Motivo:</span> {motivo}
+          <span className="font-medium">Reason:</span> {reason}
         </p>
       </div>
 
@@ -65,10 +65,10 @@ function EscaladoCard({
         <span className="text-xs text-muted-foreground">{timestamp}</span>
         <div className="flex gap-2">
           <button className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-            Ver historial
+            View History
           </button>
           <button className="rounded-lg bg-warning px-4 py-2 text-sm font-medium text-warning-foreground transition-colors hover:bg-warning/90">
-            Resolver
+            Resolve
           </button>
         </div>
       </div>
@@ -76,83 +76,83 @@ function EscaladoCard({
   );
 }
 
-const escalados = [
+const escalatedCases = [
   {
     initials: "CR",
     name: "Carlos R.",
-    department: "Ventas",
+    department: "Sales",
     location: "Monterrey",
-    timestamp: "Escalado hace 2 h",
+    timestamp: "Escalated 2 hrs ago",
     message:
-      "Oye inútil, si no cumples la meta te voy a reportar con todos. Eres un completo fracaso y no mereces estar aquí.",
-    escaladoA: "Recursos Humanos - Director",
-    motivo: "Patrón repetido de agresión verbal",
-    tiempoEscalado: "En revisión 2h",
+      "Hey idiot, if you don't meet the goal I'm going to report you to everyone. You're a complete failure and you don't deserve to be here.",
+    escalatedTo: "Human Resources - Director",
+    reason: "Repeated pattern of verbal aggression",
+    escalatedTime: "In review 2h",
   },
   {
     initials: "JT",
     name: "Jorge T.",
-    department: "TI",
+    department: "IT",
     location: "Guadalajara",
-    timestamp: "Escalado hace 5 h",
+    timestamp: "Escalated 5 hrs ago",
     message:
-      "Nadie te soporta en el equipo. Todos hablan mal de ti a tus espaldas y yo lo confirmo.",
-    escaladoA: "Gerente de TI",
-    motivo: "Bullying laboral identificado",
-    tiempoEscalado: "En revisión 5h",
+      "Nobody can stand you on the team. Everyone talks bad about you behind your back and I can confirm it.",
+    escalatedTo: "IT Manager",
+    reason: "Workplace bullying identified",
+    escalatedTime: "In review 5h",
   },
   {
     initials: "LM",
     name: "Laura M.",
     department: "Marketing",
     location: "CDMX",
-    timestamp: "Escalado hace 8 h",
+    timestamp: "Escalated 8 hrs ago",
     message:
-      "Tu trabajo es tan malo que mejor ni lo entregues. Me da vergüenza que estés en mi equipo.",
-    escaladoA: "Director de Marketing",
-    motivo: "Intimidación y menosprecio",
-    tiempoEscalado: "En revisión 8h",
+      "Your work is so bad that you better not submit it. I'm embarrassed that you're on my team.",
+    escalatedTo: "Marketing Director",
+    reason: "Intimidation and belittlement",
+    escalatedTime: "In review 8h",
   },
   {
     initials: "PG",
     name: "Pedro G.",
-    department: "Operaciones",
+    department: "Operations",
     location: "MTY",
-    timestamp: "Escalado hace 1 día",
+    timestamp: "Escalated 1 day ago",
     message:
-      "Si vuelves a cometer un error así, te aseguro que no vas a durar aquí mucho tiempo.",
-    escaladoA: "Recursos Humanos - Investigación",
-    motivo: "Amenaza laboral directa",
-    tiempoEscalado: "En revisión 1d",
+      "If you make another mistake like that, I guarantee you won't last long here.",
+    escalatedTo: "Human Resources - Investigation",
+    reason: "Direct workplace threat",
+    escalatedTime: "In review 1d",
   },
   {
     initials: "SM",
     name: "Sandra M.",
-    department: "Atención al Cliente",
+    department: "Customer Service",
     location: "GDL",
-    timestamp: "Escalado hace 1 día",
+    timestamp: "Escalated 1 day ago",
     message:
-      "Eres la persona más incompetente con la que he trabajado. No sé cómo sigues aquí.",
-    escaladoA: "Gerente de AC",
-    motivo: "Hostigamiento continuo",
-    tiempoEscalado: "En revisión 1d",
+      "You're the most incompetent person I've ever worked with. I don't know how you're still here.",
+    escalatedTo: "CS Manager",
+    reason: "Continuous harassment",
+    escalatedTime: "In review 1d",
   },
 ];
 
-export function EscaladosView() {
+export function EscalatedView() {
   return (
     <main className="flex-1 overflow-auto bg-card/50 p-6">
       <header className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-foreground">
-            Casos escalados
+            Escalated Cases
           </h1>
           <p className="text-sm text-muted-foreground">
-            5 casos en revisión por supervisores
+            5 cases under supervisor review
           </p>
         </div>
         <button className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-          Ver reportes
+          View Reports
           <ArrowUpRight className="h-4 w-4" />
         </button>
       </header>
@@ -160,21 +160,21 @@ export function EscaladosView() {
       <div className="mb-6 grid grid-cols-3 gap-4">
         <div className="rounded-xl bg-secondary/50 p-4">
           <p className="text-3xl font-bold text-warning">5</p>
-          <p className="mt-1 text-sm text-muted-foreground">Casos activos</p>
+          <p className="mt-1 text-sm text-muted-foreground">Active cases</p>
         </div>
         <div className="rounded-xl bg-secondary/50 p-4">
           <p className="text-3xl font-bold text-foreground">12h</p>
-          <p className="mt-1 text-sm text-muted-foreground">Tiempo prom. escalado</p>
+          <p className="mt-1 text-sm text-muted-foreground">Avg. escalation time</p>
         </div>
         <div className="rounded-xl bg-secondary/50 p-4">
           <p className="text-3xl font-bold text-success">3</p>
-          <p className="mt-1 text-sm text-muted-foreground">Resueltos hoy</p>
+          <p className="mt-1 text-sm text-muted-foreground">Resolved today</p>
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        {escalados.map((escalado, index) => (
-          <EscaladoCard key={index} {...escalado} />
+        {escalatedCases.map((escalatedCase, index) => (
+          <EscalatedCard key={index} {...escalatedCase} />
         ))}
       </div>
     </main>

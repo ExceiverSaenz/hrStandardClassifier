@@ -3,20 +3,20 @@
 import { useState } from "react";
 import { Sidebar } from "@/components/sidebar";
 import { ReviewQueue } from "@/components/review-queue";
-import { EscaladosView } from "@/components/escalados-view";
-import { ResueltosView } from "@/components/resueltos-view";
+import { EscalatedView } from "@/components/escalated-view";
+import { ResolvedView } from "@/components/resolved-view";
 
-export type ViewType = "pendientes" | "escalados" | "resueltos";
+export type ViewType = "pending" | "escalated" | "resolved";
 
 export default function DashboardPage() {
-  const [activeView, setActiveView] = useState<ViewType>("pendientes");
+  const [activeView, setActiveView] = useState<ViewType>("pending");
 
   return (
     <div className="flex h-screen">
       <Sidebar activeView={activeView} onViewChange={setActiveView} />
-      {activeView === "pendientes" && <ReviewQueue />}
-      {activeView === "escalados" && <EscaladosView />}
-      {activeView === "resueltos" && <ResueltosView />}
+      {activeView === "pending" && <ReviewQueue />}
+      {activeView === "escalated" && <EscalatedView />}
+      {activeView === "resolved" && <ResolvedView />}
     </div>
   );
 }

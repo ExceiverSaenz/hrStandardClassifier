@@ -3,53 +3,53 @@
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, CheckCircle2, XCircle, ArrowUp } from "lucide-react";
 
-type ResolutionType = "falso_positivo" | "accion_tomada" | "escalado_resuelto";
+type ResolutionType = "false_positive" | "action_taken" | "escalation_resolved";
 
-interface ResueltoCardProps {
+interface ResolvedCardProps {
   initials: string;
   name: string;
   department: string;
   location: string;
   timestamp: string;
   message: string;
-  resolucion: ResolutionType;
-  resueltoPor: string;
-  nota?: string;
+  resolution: ResolutionType;
+  resolvedBy: string;
+  note?: string;
 }
 
-function ResueltoCard({
+function ResolvedCard({
   initials,
   name,
   department,
   location,
   timestamp,
   message,
-  resolucion,
-  resueltoPor,
-  nota,
-}: ResueltoCardProps) {
+  resolution,
+  resolvedBy,
+  note,
+}: ResolvedCardProps) {
   const resolutionConfig = {
-    falso_positivo: {
-      label: "Falso positivo",
+    false_positive: {
+      label: "False Positive",
       icon: XCircle,
       color: "text-muted-foreground",
       bgColor: "bg-muted/50",
     },
-    accion_tomada: {
-      label: "Acción tomada",
+    action_taken: {
+      label: "Action Taken",
       icon: CheckCircle2,
       color: "text-success",
       bgColor: "bg-success/10",
     },
-    escalado_resuelto: {
-      label: "Escalado resuelto",
+    escalation_resolved: {
+      label: "Escalation Resolved",
       icon: ArrowUp,
       color: "text-warning",
       bgColor: "bg-warning/10",
     },
   };
 
-  const config = resolutionConfig[resolucion];
+  const config = resolutionConfig[resolution];
   const Icon = config.icon;
 
   return (
@@ -78,12 +78,12 @@ function ResueltoCard({
 
       <div className="rounded-lg bg-secondary/30 p-3">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Resuelto por: <span className="font-medium text-foreground">{resueltoPor}</span></span>
+          <span className="text-muted-foreground">Resolved by: <span className="font-medium text-foreground">{resolvedBy}</span></span>
           <span className="text-xs text-muted-foreground">{timestamp}</span>
         </div>
-        {nota && (
+        {note && (
           <p className="mt-2 text-sm text-muted-foreground">
-            <span className="font-medium">Nota:</span> {nota}
+            <span className="font-medium">Note:</span> {note}
           </p>
         )}
       </div>
@@ -91,93 +91,93 @@ function ResueltoCard({
   );
 }
 
-const resueltos = [
+const resolvedCases = [
   {
     initials: "FM",
     name: "Fernando M.",
-    department: "Ventas",
+    department: "Sales",
     location: "MTY",
-    timestamp: "hace 30 min",
-    message: "Necesitas esforzarte más si quieres alcanzar tus metas este mes.",
-    resolucion: "falso_positivo" as const,
-    resueltoPor: "Ana García",
-    nota: "Retroalimentación constructiva, no constituye acoso.",
+    timestamp: "30 min ago",
+    message: "You need to try harder if you want to reach your goals this month.",
+    resolution: "false_positive" as const,
+    resolvedBy: "Ana Garcia",
+    note: "Constructive feedback, does not constitute harassment.",
   },
   {
     initials: "CR",
     name: "Carlos R.",
-    department: "Ventas",
+    department: "Sales",
     location: "Monterrey",
-    timestamp: "hace 1 h",
-    message: "Si sigues así, voy a hablar con el director sobre tu desempeño.",
-    resolucion: "accion_tomada" as const,
-    resueltoPor: "Director de Ventas",
-    nota: "Se aplicó advertencia formal. Sesión de mediación programada.",
+    timestamp: "1 hr ago",
+    message: "If you keep this up, I'm going to talk to the director about your performance.",
+    resolution: "action_taken" as const,
+    resolvedBy: "Sales Director",
+    note: "Formal warning issued. Mediation session scheduled.",
   },
   {
     initials: "LR",
     name: "Luis R.",
-    department: "Finanzas",
+    department: "Finance",
     location: "CDMX",
-    timestamp: "hace 2 h",
-    message: "Tu presentación de ayer fue un desastre total.",
-    resolucion: "falso_positivo" as const,
-    resueltoPor: "María López",
-    nota: "Crítica directa pero no agresiva. Se recomienda capacitación en comunicación.",
+    timestamp: "2 hrs ago",
+    message: "Your presentation yesterday was a total disaster.",
+    resolution: "false_positive" as const,
+    resolvedBy: "Maria Lopez",
+    note: "Direct criticism but not aggressive. Communication training recommended.",
   },
   {
     initials: "MG",
     name: "Miguel G.",
-    department: "TI",
+    department: "IT",
     location: "GDL",
-    timestamp: "hace 3 h",
-    message: "Eres un incompetente, todos lo sabemos pero nadie te lo dice.",
-    resolucion: "escalado_resuelto" as const,
-    resueltoPor: "RH - Investigación",
-    nota: "Caso investigado. Sanción aplicada al agresor.",
+    timestamp: "3 hrs ago",
+    message: "You're incompetent, everyone knows it but nobody tells you.",
+    resolution: "escalation_resolved" as const,
+    resolvedBy: "HR - Investigation",
+    note: "Case investigated. Sanction applied to aggressor.",
   },
   {
     initials: "PT",
     name: "Patricia T.",
     department: "Marketing",
     location: "MTY",
-    timestamp: "hace 4 h",
-    message: "No me sorprende que hayas fallado otra vez.",
-    resolucion: "accion_tomada" as const,
-    resueltoPor: "Gerente de Marketing",
-    nota: "Conversación privada realizada. Compromiso de mejora.",
+    timestamp: "4 hrs ago",
+    message: "I'm not surprised you failed again.",
+    resolution: "action_taken" as const,
+    resolvedBy: "Marketing Manager",
+    note: "Private conversation held. Improvement commitment made.",
   },
   {
     initials: "RV",
     name: "Ricardo V.",
-    department: "Operaciones",
+    department: "Operations",
     location: "CDMX",
-    timestamp: "hace 5 h",
-    message: "¿Por qué te contrataron? Claramente no calificas para esto.",
-    resolucion: "escalado_resuelto" as const,
-    resueltoPor: "Director de Operaciones",
-    nota: "Acción disciplinaria completada.",
+    timestamp: "5 hrs ago",
+    message: "Why did they hire you? You clearly don't qualify for this.",
+    resolution: "escalation_resolved" as const,
+    resolvedBy: "Operations Director",
+    note: "Disciplinary action completed.",
   },
 ];
 
-export function ResueltosView() {
-  const falsosPositivos = resueltos.filter(r => r.resolucion === "falso_positivo").length;
-  const accionesTomadas = resueltos.filter(r => r.resolucion === "accion_tomada").length;
-  const escaladosResueltos = resueltos.filter(r => r.resolucion === "escalado_resuelto").length;
+export function ResolvedView() {
+  const falsePositives = resolvedCases.filter(r => r.resolution === "false_positive").length;
+  const actionsTaken = resolvedCases.filter(r => r.resolution === "action_taken").length;
+  const escalationsResolved = resolvedCases.filter(r => r.resolution === "escalation_resolved").length;
 
   return (
     <main className="flex-1 overflow-auto bg-card/50 p-6">
       <header className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-foreground">
-            Casos resueltos
+            Resolved Cases
           </h1>
           <p className="text-sm text-muted-foreground">
-            124 casos resueltos en los últimos 30 días
+            124 cases resolved in the last 30 days
           </p>
         </div>
         <button className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-          Exportar reporte
+          Export Report
           <ArrowUpRight className="h-4 w-4" />
         </button>
       </header>
@@ -185,40 +185,40 @@ export function ResueltosView() {
       <div className="mb-6 grid grid-cols-4 gap-4">
         <div className="rounded-xl bg-secondary/50 p-4">
           <p className="text-3xl font-bold text-success">124</p>
-          <p className="mt-1 text-sm text-muted-foreground">Total resueltos</p>
+          <p className="mt-1 text-sm text-muted-foreground">Total resolved</p>
         </div>
         <div className="rounded-xl bg-secondary/50 p-4">
-          <p className="text-3xl font-bold text-muted-foreground">{falsosPositivos}</p>
-          <p className="mt-1 text-sm text-muted-foreground">Falsos positivos</p>
+          <p className="text-3xl font-bold text-muted-foreground">{falsePositives}</p>
+          <p className="mt-1 text-sm text-muted-foreground">False positives</p>
         </div>
         <div className="rounded-xl bg-secondary/50 p-4">
-          <p className="text-3xl font-bold text-success">{accionesTomadas}</p>
-          <p className="mt-1 text-sm text-muted-foreground">Acciones tomadas</p>
+          <p className="text-3xl font-bold text-success">{actionsTaken}</p>
+          <p className="mt-1 text-sm text-muted-foreground">Actions taken</p>
         </div>
         <div className="rounded-xl bg-secondary/50 p-4">
-          <p className="text-3xl font-bold text-warning">{escaladosResueltos}</p>
-          <p className="mt-1 text-sm text-muted-foreground">Escalados resueltos</p>
+          <p className="text-3xl font-bold text-warning">{escalationsResolved}</p>
+          <p className="mt-1 text-sm text-muted-foreground">Escalations resolved</p>
         </div>
       </div>
 
       <div className="mb-6 flex gap-2">
         <button className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background">
-          Todos
+          All
         </button>
         <button className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary/80">
-          Falsos positivos
+          False Positives
         </button>
         <button className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary/80">
-          Acciones tomadas
+          Actions Taken
         </button>
         <button className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary/80">
-          Escalados
+          Escalations
         </button>
       </div>
 
       <div className="flex flex-col gap-4">
-        {resueltos.map((resuelto, index) => (
-          <ResueltoCard key={index} {...resuelto} />
+        {resolvedCases.map((resolvedCase, index) => (
+          <ResolvedCard key={index} {...resolvedCase} />
         ))}
       </div>
     </main>

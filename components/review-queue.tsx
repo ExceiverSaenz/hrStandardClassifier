@@ -49,52 +49,52 @@ const alerts = [
   {
     initials: "CR",
     name: "Carlos R.",
-    department: "Ventas",
+    department: "Sales",
     location: "Monterrey",
-    severity: "Alta" as const,
-    timestamp: "hace 23 min",
+    severity: "High" as const,
+    timestamp: "23 min ago",
     message:
-      "Oye inútil, si no cumples la meta te voy a reportar con todos. Eres un completo fracaso y no mereces estar aquí.",
+      "Hey idiot, if you don't meet the goal I'm going to report you to everyone. You're a complete failure and you don't deserve to be here.",
   },
   {
     initials: "ML",
-    name: "María L.",
-    department: "Soporte",
+    name: "Maria L.",
+    department: "Support",
     location: "CDMX",
-    severity: "Media" as const,
-    timestamp: "hace 1 h",
+    severity: "Medium" as const,
+    timestamp: "1 hr ago",
     message:
-      "Estás fallando otra vez en todo. Ya me cansé de cubrir tus errores frente al cliente.",
+      "You're failing again at everything. I'm tired of covering up your mistakes in front of the client.",
   },
   {
     initials: "JT",
     name: "Jorge T.",
-    department: "TI",
+    department: "IT",
     location: "Guadalajara",
-    severity: "Alta" as const,
-    timestamp: "hace 2 h",
+    severity: "High" as const,
+    timestamp: "2 hrs ago",
     message:
-      "Nadie te soporta en el equipo. Todos hablan mal de ti a tus espaldas y yo lo confirmo.",
+      "Nobody can stand you on the team. Everyone talks bad about you behind your back and I can confirm it.",
   },
   {
     initials: "AP",
     name: "Ana P.",
-    department: "Finanzas",
+    department: "Finance",
     location: "MTY",
-    severity: "Media" as const,
-    timestamp: "hace 3 h",
+    severity: "Medium" as const,
+    timestamp: "3 hrs ago",
     message:
-      "Este reporte está lleno de errores de nuevo. ¿En serio no puedes hacer nada bien?",
+      "This report is full of errors again. Can you seriously not do anything right?",
   },
   {
     initials: "RG",
     name: "Roberto G.",
-    department: "Logística",
+    department: "Logistics",
     location: "CDMX",
-    severity: "Media" as const,
-    timestamp: "hace 5 h",
+    severity: "Medium" as const,
+    timestamp: "5 hrs ago",
     message:
-      "No te molestes en opinar, nadie quiere escucharte en esta reunión.",
+      "Don't bother giving your opinion, nobody wants to hear you in this meeting.",
   },
 ];
 
@@ -104,29 +104,29 @@ export function ReviewQueue() {
       <header className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-foreground">
-            Cola de revisión
+            Review Queue
           </h1>
           <p className="text-sm text-muted-foreground">
-            38 alertas pendientes · ordenadas por severidad
+            38 pending alerts · sorted by severity
           </p>
         </div>
         <button className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
-          Ver patrones
+          View Patterns
           <ArrowUpRight className="h-4 w-4" />
         </button>
       </header>
 
       <div className="mb-6 grid grid-cols-3 gap-4">
-        <StatCard value="12" label="Severidad alta" variant="danger" />
-        <StatCard value="26" label="Severidad media" variant="warning" />
-        <StatCard value="4.2h" label="Tiempo prom. respuesta" variant="default" />
+        <StatCard value="12" label="High severity" variant="danger" />
+        <StatCard value="26" label="Medium severity" variant="warning" />
+        <StatCard value="4.2h" label="Avg. response time" variant="default" />
       </div>
 
       <div className="mb-6 flex gap-2">
-        <FilterButton label="Todas" active />
-        <FilterButton label="Alta" />
-        <FilterButton label="Media" />
-        <FilterButton label="Escaladas" />
+        <FilterButton label="All" active />
+        <FilterButton label="High" />
+        <FilterButton label="Medium" />
+        <FilterButton label="Escalated" />
       </div>
 
       <div className="flex flex-col gap-4">
