@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Inbox, AlertTriangle, CheckCircle2 } from "lucide-react";
+import type { ViewType } from "@/app/page";
 
 interface NavItemProps {
   icon: React.ReactNode;
@@ -9,9 +10,10 @@ interface NavItemProps {
   count: number;
   active?: boolean;
   variant?: "danger" | "warning" | "default";
+  onClick: () => void;
 }
 
-function NavItem({ icon, label, count, active, variant = "default" }: NavItemProps) {
+function NavItem({ icon, label, count, active, variant = "default", onClick }: NavItemProps) {
   const badgeColors = {
     danger: "bg-destructive text-destructive-foreground",
     warning: "bg-warning text-warning-foreground",
@@ -20,6 +22,7 @@ function NavItem({ icon, label, count, active, variant = "default" }: NavItemPro
 
   return (
     <button
+      onClick={onClick}
       className={cn(
         "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors",
         active
@@ -78,7 +81,12 @@ function ProgressRing({ percentage }: { percentage: number }) {
   );
 }
 
-export function Sidebar() {
+interface SidebarProps {
+  activeView: ViewType;
+  onViewChange: (view: ViewType) => void;
+}
+
+export function Sidebar({ activeView, onViewChange }: SidebarProps) {
   return (
     <aside className="flex h-screen w-60 flex-col border-r border-border bg-background p-4">
       <div className="mb-8">
@@ -92,20 +100,25 @@ export function Sidebar() {
           icon={<Inbox className="h-4 w-4" />}
           label="Pendientes"
           count={38}
-          active
+          active={activeView === "pendientes"}
           variant="danger"
+          onClick={() => onViewChange("pendientes")}
         />
         <NavItem
           icon={<AlertTriangle className="h-4 w-4" />}
           label="Escalados"
           count={5}
+          active={activeView === "escalados"}
           variant="warning"
+          onClick={() => onViewChange("escalados")}
         />
         <NavItem
           icon={<CheckCircle2 className="h-4 w-4" />}
           label="Resueltos"
           count={124}
+          active={activeView === "resueltos"}
           variant="default"
+          onClick={() => onViewChange("resueltos")}
         />
       </nav>
 
