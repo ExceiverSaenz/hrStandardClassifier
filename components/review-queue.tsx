@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { AlertCard } from "./alert-card";
-import { PatternsAnalytics } from "./patterns-analytics";
-import { ExportModal } from "./export-modal";
 
 interface StatCardProps {
   value: string;
@@ -31,13 +28,11 @@ function StatCard({ value, label, variant }: StatCardProps) {
 interface FilterButtonProps {
   label: string;
   active?: boolean;
-  onClick?: () => void;
 }
 
-function FilterButton({ label, active, onClick }: FilterButtonProps) {
+function FilterButton({ label, active }: FilterButtonProps) {
   return (
     <button
-      onClick={onClick}
       className={cn(
         "rounded-full px-4 py-2 text-sm font-medium transition-colors",
         active
@@ -104,85 +99,41 @@ const alerts = [
 ];
 
 export function ReviewQueue() {
-  const [showPatterns, setShowPatterns] = useState(false);
-  const [showExport, setShowExport] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  if (showPatterns) {
-    return <PatternsAnalytics onClose={() => setShowPatterns(false)} />;
-  }
-
-  const filteredAlerts = activeFilter === "All" 
-    ? alerts 
-    : alerts.filter(alert => alert.severity === activeFilter);
-
   return (
-    <>
-      <main className="flex-1 overflow-auto bg-card/50 p-6">
-        <header className="mb-6 flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-semibold text-foreground">
-              Review Queue
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              38 pending alerts · sorted by severity
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={() => setShowExport(true)}
-              className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-            >
-              Export
-              <Download className="h-4 w-4" />
-            </button>
-            <button 
-              onClick={() => setShowPatterns(true)}
-              className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-            >
-              View Patterns
-              <ArrowUpRight className="h-4 w-4" />
-            </button>
-          </div>
-        </header>
-
-        <div className="mb-6 grid grid-cols-3 gap-4">
-          <StatCard value="12" label="High severity" variant="danger" />
-          <StatCard value="26" label="Medium severity" variant="warning" />
-          <StatCard value="4.2h" label="Avg. response time" variant="default" />
+    <main className="flex-1 overflow-auto bg-card/50 p-6">
+      <header className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-semibold text-foreground">
+            Review Queue
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            38 pending alerts · sorted by severity
+          </p>
         </div>
+        <button className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+          View Patterns
+          <ArrowUpRight className="h-4 w-4" />
+        </button>
+      </header>
 
-        <div className="mb-6 flex gap-2">
-          <FilterButton 
-            label="All" 
-            active={activeFilter === "All"} 
-            onClick={() => setActiveFilter("All")}
-          />
-          <FilterButton 
-            label="High" 
-            active={activeFilter === "High"} 
-            onClick={() => setActiveFilter("High")}
-          />
-          <FilterButton 
-            label="Medium" 
-            active={activeFilter === "Medium"} 
-            onClick={() => setActiveFilter("Medium")}
-          />
-          <FilterButton 
-            label="Escalated" 
-            active={activeFilter === "Escalated"} 
-            onClick={() => setActiveFilter("Escalated")}
-          />
-        </div>
+      <div className="mb-6 grid grid-cols-3 gap-4">
+        <StatCard value="12" label="High severity" variant="danger" />
+        <StatCard value="26" label="Medium severity" variant="warning" />
+        <StatCard value="4.2h" label="Avg. response time" variant="default" />
+      </div>
 
-        <div className="flex flex-col gap-4">
-          {filteredAlerts.map((alert, index) => (
-            <AlertCard key={index} {...alert} />
-          ))}
-        </div>
-      </main>
+      <div className="mb-6 flex gap-2">
+        <FilterButton label="All" active />
+        <FilterButton label="High" />
+        <FilterButton label="Medium" />
+        <FilterButton label="Escalated" />
+      </div>
 
-      <ExportModal isOpen={showExport} onClose={() => setShowExport(false)} />
-    </>
+      <div className="flex flex-col gap-4">
+        {alerts.map((alert, index) => (
+          <AlertCard key={index} {...alert} />
+        ))}
+      </div>
+    </main>
   );
 }
